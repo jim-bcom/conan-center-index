@@ -195,6 +195,10 @@ class OpenImageIOConan(ConanFile):
         cmake.definitions["USE_LIBWEBP"] = self.options.with_libwebp
         cmake.definitions["USE_OPENJPEG"] = self.options.with_openjpeg
 
+        if self.settings.os == 'Android':
+            cmake.definitions["COMPILER_SUPPORTS_ATOMIC_WITHOUT_LIBATOMIC_EXITCODE"] = "0"
+            cmake.definitions["COMPILER_SUPPORTS_ATOMIC_WITHOUT_LIBATOMIC_EXITCODE__TRYRUN_OUTPUT"] = ""
+
         if self.options.with_openvdb:
             cmake.definitions["CMAKE_CXX_STANDARD"] = 14
 
