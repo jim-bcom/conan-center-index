@@ -40,6 +40,7 @@ class OpenImageIOConan(ConanFile):
         "with_openvdb": [True, False],
         "with_ptex": [True, False],
         "with_libwebp": [True, False],
+        "with_tools": [True, False],
     }
     default_options = {
         "shared": False,
@@ -60,6 +61,7 @@ class OpenImageIOConan(ConanFile):
         "with_openvdb": False, # FIXME: broken on M1
         "with_ptex": True,
         "with_libwebp": True,
+        "with_tools": True,
     }
 
     short_paths = True
@@ -194,6 +196,8 @@ class OpenImageIOConan(ConanFile):
         cmake.definitions["USE_FREETYPE"] = self.options.with_freetype
         cmake.definitions["USE_LIBWEBP"] = self.options.with_libwebp
         cmake.definitions["USE_OPENJPEG"] = self.options.with_openjpeg
+
+        cmake.definitions["OIIO_BUILD_TOOLS"] = self.options.with_tools
 
         if self.options.with_openvdb:
             cmake.definitions["CMAKE_CXX_STANDARD"] = 14
